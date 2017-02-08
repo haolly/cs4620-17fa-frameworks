@@ -100,6 +100,7 @@ public class OBJMesh {
 		BufferedReader reader = Files.newBufferedReader(Paths.get(filename));
 		String line;
 		while ((line = reader.readLine()) != null) {
+			if (line.length() == 0) continue; // Blank line
 			String[] tokens = line.split("\\s+");
 			if (tokens[0].charAt(0) == '#') { // Comment
 				continue;
