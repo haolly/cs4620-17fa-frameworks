@@ -100,9 +100,10 @@ public class OBJMesh {
 		BufferedReader reader = Files.newBufferedReader(Paths.get(filename));
 		String line;
 		while ((line = reader.readLine()) != null) {
-			if (line.length() == 0) continue; // Blank line
 			String[] tokens = line.split("\\s+");
-			if (tokens[0].charAt(0) == '#') { // Comment
+			if (tokens.length == 0 || tokens[0].length() == 0) { // Blank line
+				continue;
+			} else if (tokens[0].charAt(0) == '#') { // Comment
 				continue;
 			} else if (tokens[0].equals("v")) { // Vertex position
 				if (tokens.length != 4) {
