@@ -17,7 +17,7 @@
     <viewHeight>2.25</viewHeight>
   </camera>
   <image>
-    320 200
+    320 180
   </image>
 
   <shader name="ball000" type="Phong">

@@ -13,7 +13,7 @@
     <viewHeight>2.25</viewHeight>
   </camera>
   <image>
-    320 200
+    320 180
   </image>
   <shader name="blue" type="Lambertian">
     <diffuseColor>.2 .3 1</diffuseColor>

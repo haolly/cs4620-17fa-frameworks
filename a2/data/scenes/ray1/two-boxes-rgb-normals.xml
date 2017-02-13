@@ -13,7 +13,7 @@
     <viewHeight>2.25</viewHeight>
   </camera>
   <image>
-    320 200
+    320 180
   </image>
   <shader name="xyz2rgb" type="RGBNormals"></shader>
   <surface type="Box">
