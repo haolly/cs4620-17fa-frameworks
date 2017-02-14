@@ -30,7 +30,7 @@ public class OrthographicCamera extends Camera {
         // TODO#A2: Fill in this function.
         // 1) Transform inU so that it lies between [-viewWidth / 2, +viewWidth / 2] 
         //    instead of [0, 1]. Similarly, transform inV so that its range is
-        //    [-vieHeight / 2, +viewHeight / 2]
+        //    [-viewHeight / 2, +viewHeight / 2]
         // 2) Set the origin field of outRay for an orthographic camera. 
         //    In an orthographic camera, the origin should depend on your transformed
         //    inU and inV and your basis vectors u and v.
