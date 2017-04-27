@@ -84,22 +84,16 @@ public class BvhTests {
         // Triangle
         OBJMesh md = new OBJMesh();
 
-        md.positions.add(new Vector3(-1,-1,0));
-        md.positions.add(new Vector3(1,-1,0));
-        md.positions.add(new Vector3(0,1,-1));
+        md.positions.add(new Vector3(-1f,-1f,0f));
+        md.positions.add(new Vector3(1f,-1f,0f));
+        md.positions.add(new Vector3(0f,1f,-1f));
         
         OBJFace tri1 = new OBJFace(3,true,true);
         tri1.setVertex(0, 0, 0, 0);
-        tri1.setVertex(1, 0, 0, 0);
-        tri1.setVertex(2, 0, 0, 0);
+        tri1.setVertex(1, 1, 0, 0);
+        tri1.setVertex(2, 2, 0, 0);
         
         md.faces.add(tri1);
-        // IntBuffer indices = BufferUtils.createIntBuffer(3);
-        // indices.put(new int[]{0, 1, 2});
-        // md.indices = indices;
-        // md.indexCount  = 3;
-        // md.vertexCount = 3;
-        // Triangle t = new Triangle(new Mesh(md), new Vector3i(0, 1, 2), null);
         Triangle t = new Triangle(new Mesh(md), tri1, null);
         t.setTransformation(tmat, tmatInv, tmatTInv);
         
