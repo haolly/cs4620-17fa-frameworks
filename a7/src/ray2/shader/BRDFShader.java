@@ -32,7 +32,8 @@ public abstract class BRDFShader extends Shader {
 
 
 	/**
-	 * Evaluate the intensity for a given intersection using the CookTorrance shading model.
+	 * Evaluate the intensity for a given intersection using the BRDF appropriate to
+	 * the instance, implemented in the overridden evalBRDF method.
 	 *
 	 * @param outIntensity The color returned towards the source of the incoming ray.
 	 * @param scene The scene in which the surface exists.
