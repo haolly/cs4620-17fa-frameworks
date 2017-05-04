@@ -46,9 +46,9 @@ public abstract class BRDFShader extends Shader {
 			int depth) {
 		// TODO#A7 Fill in this function.
 		// 1) Loop through each light in the scene.
-		// 2) If the intersection point is shadowed, skip the calculation for the light.
+		// 2) Use Light.sample() to generate a direction toward the light.
+		// 3) If the intersection point is shadowed, skip the calculation for the light.
 		//	  See Shader.java for a useful shadowing function.
-		// 3) Use Light.sample() to generate a direction toward the light.
 		// 4) Evaluate the BRDF using the abstract evalBRDF method.
 		// 5) Compute the final color using the BRDF value and the information in the
 		//    light sampling record.
