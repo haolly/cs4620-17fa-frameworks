@@ -1,22 +1,22 @@
 package ray1.camera;
 
+import egl.math.Vector3;
 import ray1.Ray;
 
 public class OrthographicCamera extends Camera {
 
-    //TODO#A2: create necessary new variables/objects here, including an orthonormal basis
-    //          formed by three basis vectors and any other helper variables 
-    //          if needed.
-    
+    private Vector3 u;
+    private Vector3 v;
+    private Vector3 w;
+
+
     /**
      * Initialize the derived view variables to prepare for using the camera.
      */
     public void init() {
-        // TODO#A2: Fill in this function.
-        // 1) Set the 3 basis vectors in the orthonormal basis, 
-        //    based on viewDir and viewUp
-        // 2) Set up the helper variables if needed
-
+        w = getViewDir().clone().mul(-1).normalize();
+        u = getViewUp().clone().cross(w).normalize();
+        v = w.clone().cross(u).normalize();
     }
 
     /**
@@ -27,15 +27,13 @@ public class OrthographicCamera extends Camera {
      * @param inV The v coord of the image point (range [0,1])
      */
     public void getRay(Ray outRay, float inU, float inV) {
-        // TODO#A2: Fill in this function.
-        // 1) Transform inU so that it lies between [-viewWidth / 2, +viewWidth / 2] 
-        //    instead of [0, 1]. Similarly, transform inV so that its range is
-        //    [-viewHeight / 2, +viewHeight / 2]
-        // 2) Set the origin field of outRay for an orthographic camera. 
-        //    In an orthographic camera, the origin should depend on your transformed
-        //    inU and inV and your basis vectors u and v.
-        // 3) Set the direction field of outRay for an orthographic camera.
-
+        double fu = (inU * getViewWidth());
+        double fuNew = fu - getViewWidth()/2;
+        double fv = (inV * getViewHeight());
+        double fvNew = fv - getViewHeight()/2;
+        Vector3 origin = getViewPoint().add(u.clone().mul((float) fuNew)).add(v.clone().mul((float) fvNew));
+        outRay.direction.set(-w.x, -w.y, -w.z);
+        outRay.origin.set(origin.x, origin.y, origin.z);
     }
 
 }
