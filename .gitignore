@@ -1,2 +1,4 @@
 */.idea/
 */out/
+**/scenes/ray1/*.xml.png
+!**/scenes/ray1/reference/*.xml.pgn

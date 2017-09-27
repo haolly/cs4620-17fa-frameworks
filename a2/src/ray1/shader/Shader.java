@@ -29,7 +29,6 @@ public abstract class Shader {
 	 * @param scene The scene in which the surface exists.
 	 * @param ray The ray which intersected the surface.
 	 * @param record The intersection record of where the ray intersected the surface.
-	 * @param depth The recursion depth.
 	 */
 	public abstract void shade(Colorf outIntensity, Scene scene, Ray ray, 
 			IntersectionRecord record);

@@ -230,12 +230,18 @@ public class RayTracer {
 	 * @param ray the ray to shade
 	 */
 	public static void shadeRay(Colorf outColor, Scene scene, Ray ray) {
-		// TODO#A2: Compute the color of the intersection point.
+		// Compute the color of the intersection point.
 		// 1) Find the first intersection of "ray" with the scene.
 		//    Record intersection in intersectionRecord. If it doesn't hit anything,
 		//    just return the scene's background color.
 		// 2) Get the shader from the intersection record.
 		// 3) Call the shader's shade() method to set the color for this ray.
-		
+		IntersectionRecord outRecord = new IntersectionRecord();
+		boolean hit = scene.getFirstIntersection(outRecord, ray);
+        if(!hit) {
+            outColor = scene.backColor;
+        }else {
+            outRecord.surface.getShader().shade(outColor, scene, ray, outRecord);
+        }
 	}
 }

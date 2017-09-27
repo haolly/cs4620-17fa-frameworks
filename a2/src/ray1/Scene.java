@@ -125,7 +125,7 @@ public class Scene {
 	}
 	
 	private boolean intersect(IntersectionRecord outRecord, Ray rayIn, boolean anyIntersection) {
-		// TODO#A2: 1) Loop through all surfaces in the scene.
+		//          1) Loop through all surfaces in the scene.
 		//		    2) Intersect each with a copy of the given ray.
 		//		    3) If there was an intersection, check the modified IntersectionRecord to see
 		//		  	   if the object was hit by the ray sooner than any previous object.
@@ -134,6 +134,26 @@ public class Scene {
 		//		    5) Set outRecord to the IntersectionRecord of the first object hit.
 		//		    6) If there was an intersection, return true; otherwise return false.
 
-		return false;
+        boolean hit = false;
+        Ray newRay = new Ray(rayIn);
+        newRay.makeOffsetRay();
+        IntersectionRecord newRecord = new IntersectionRecord();
+        for (int i = 0; i < surfaces.size(); i++) {
+            Surface surface = surfaces.get(i);
+            hit = surface.intersect(newRecord, newRay);
+            if(hit) {
+                if(anyIntersection) {
+                    return hit;
+                } else if(newRecord.t < newRay.end) {
+                    newRay.end = newRecord.t;
+                    outRecord.t = newRecord.t;
+                    outRecord.location.set(newRecord.location.clone());
+                    outRecord.normal.set(newRecord.normal.clone());
+                    outRecord.surface = newRecord.surface;
+                    outRecord.texCoords.set(newRecord.texCoords.clone());
+                }
+            }
+        }
+        return hit;
 	}
 }

@@ -22,7 +22,7 @@ public class PerspectiveCamera extends Camera {
     }
 
 
-    //TODO#A2: create necessary new variables/objects here, including an orthonormal basis
+    //           create necessary new variables/objects here, including an orthonormal basis
     //          formed by three basis vectors and any other helper variables 
     //          if needed.
 
