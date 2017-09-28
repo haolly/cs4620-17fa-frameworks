@@ -1,10 +1,14 @@
 package ray1.shader;
 
+import egl.math.Vector3d;
 import ray1.IntersectionRecord;
+import ray1.Light;
 import ray1.Ray;
 import ray1.Scene;
 import egl.math.Color;
 import egl.math.Colorf;
+
+import java.util.List;
 
 /**
  * A Lambertian material scatters light equally in all directions. BRDF value is
@@ -35,11 +39,9 @@ public class Lambertian extends Shader {
 	 * @param scene The scene in which the surface exists.
 	 * @param ray The ray which intersected the surface.
 	 * @param record The intersection record of where the ray intersected the surface.
-	 * @param depth The recursion depth.
 	 */
 	@Override
 	public void shade(Colorf outIntensity, Scene scene, Ray ray, IntersectionRecord record) {
-		// TODO#A2: Fill in this function.
 		// 1) Loop through each light in the scene.
 		// 2) If the intersection point is shadowed, skip the calculation for the light.
 		//	  See Shader.java for a useful shadowing function.
@@ -47,6 +49,22 @@ public class Lambertian extends Shader {
 		//    the intersection point from the light's position.
 		// 4) Compute the color of the point using the Lambert shading model. Add this value
 		//    to the output.
+        outIntensity.set(0);
+        List<Light> lights = scene.getLights();
+        for (int i = 0; i < lights.size(); i++) {
+            Light light = lights.get(i);
+            Ray shadowRay = new Ray();
+            boolean isShadow = isShadowed(scene, light, record, shadowRay);
+            if(!isShadow) {
+                Colorf lightIntensity = new Colorf();
+                Vector3d lightDir = record.location.clone().sub(light.position);
+                double r = lightDir.lenSq();
+                Vector3d l = lightDir.clone().mul(-1).normalize();
+                lightIntensity.set(light.intensity.clone().div((float)r));
+                lightIntensity.mul(diffuseColor).mul((float)Math.max(0, l.clone().dot(record.normal)));
+                outIntensity.add(lightIntensity);
+            }
+        }
 
 	}
 

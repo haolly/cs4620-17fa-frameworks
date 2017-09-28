@@ -1,8 +1,12 @@
 package ray1.shader;
 
+import egl.math.Color;
+import egl.math.MathHelper;
 import ray1.shader.Texture;
 import egl.math.Colorf;
 import egl.math.Vector2;
+
+import java.awt.font.ImageGraphicAttribute;
 
 /**
  * A Texture class that treats UV-coordinates outside the [0.0, 1.0] range as if they
@@ -18,7 +22,6 @@ public class ClampTexture extends Texture {
 			return new Colorf();
 		}
 				
-		// TODO#A2 Fill in this function.
 		// 1) Convert the input texture coordinates to integer pixel coordinates. Adding 0.5
 		//    before casting a double to an int gives better nearest-pixel rounding.
 		// 2) Clamp the resulting coordinates to the image boundary.
@@ -26,7 +29,12 @@ public class ClampTexture extends Texture {
 		//    and the image object from the Texture class), convert it to a Colord, and return it.
 		// NOTE: By convention, UV coordinates specify the lower-left corner of the image as the
 		//    origin, but the ImageBuffer class specifies the upper-left corner as the origin.
-		return new Colorf(0,0,0);
+		int i = (int) Math.round(texCoord.x * image.getWidth() + 0.5);
+		int j = (int) Math.round(texCoord.y * image.getHeight() + 0.5);
+		i = MathHelper.clamp(i, 0, image.getWidth());
+		j = MathHelper.clamp(j, 0, image.getHeight());
+        Color color = Color.fromIntRGB(image.getRGB(i,j));
+        return new Colorf(color);
 	}
 
 }
